@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class Sep21 {
     // Given a valid (IPv4) IP address, return a defanged version of that IP address.
     //A defanged IP address replaces every period "." with "[.]".
@@ -59,9 +61,45 @@ Return the following:
         return 0;
     }
 
+    // Integer to Roman
+    public static String intToRoman(int num) {
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] romanLetters = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        StringBuilder roman = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
+                num = num - values[i];
+                roman.append(romanLetters[i]);
+            }
+        }
+        return roman.toString();
+    }
+
+    // Remove the outer parentheses
+    public String removeOuterParentheses(String s) {
+        Stack<Character> stack = new Stack<>();
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (ch == '(') {
+                // exclude the case the opening parentheses at the beginning of the string
+                if (stack.size() > 0) {
+                    res.append(ch);
+                }
+                stack.push(ch);
+            } else {
+                // exclude the case the closing parentheses at the end of the string, it needs to be corresponding to one inner parentheses
+                if (stack.size() > 1) {
+                    res.append(ch);
+                }
+                stack.pop();
+
+            }
+        }
+        return res.toString();
+    }
+
     public static void main(String[] args) {
-        String version1 = "1.0";
-        String version2 = "1.0.0";
-        System.out.println(compareVersion(version1, version2));
+
     }
 }
