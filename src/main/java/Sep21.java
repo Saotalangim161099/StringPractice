@@ -1,3 +1,5 @@
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 public class Sep21 {
@@ -97,6 +99,23 @@ Return the following:
             }
         }
         return res.toString();
+    }
+
+    // Number of strings that appear as substrings in word
+    public int numOfStrings(String[] patterns, String word) {
+        Set<String> set = new HashSet<>();
+        for (int i = 0; i <= word.length(); i++) {
+            for (int j = i; j <= word.length(); j++) {
+                set.add(word.substring(i, j));
+            }
+        }
+        int res = 0;
+        for (String p : patterns) {
+            if (set.contains(p)) {
+                res++;
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) {
